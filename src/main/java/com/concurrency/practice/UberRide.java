@@ -32,9 +32,9 @@ public class UberRide {
         if (numDemocrats == 3) {
             // allow 3 other waiting democrats to take this ride
             democrats.release(3);
-            numDemocrats = 0;
+            numDemocrats -= 3;
             lock.unlock();
-        } else if (numDemocrats == 1 && numRepublicans == 2) {
+        } else if (numDemocrats == 1 && numRepublicans >= 2) {
             // allow 1 waiting democrat and 2 waiting republicans to take this ride
             democrats.release(1);
             republicans.release(2);
@@ -60,7 +60,7 @@ public class UberRide {
             republicans.release(3);
             numRepublicans -= 3;
             lock.unlock();
-        } else if (numRepublicans == 1 && numDemocrats == 2) {
+        } else if (numRepublicans == 1 && numDemocrats >= 2) {
             // allow 1 waiting republican and 2 waiting democrats to take this ride
             democrats.release(2);
             republicans.release(1);
